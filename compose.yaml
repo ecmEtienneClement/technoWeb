@@ -19,7 +19,7 @@ services:
       MYSQL_ROOT_PASSWORD: passe
 
   student:
-    image: ecmfantome/technoweb:1.2
+    image: ecmfantome/technoweb
     depends_on:
       - php
     restart: always
