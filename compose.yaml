@@ -1,0 +1,29 @@
+services:
+  db_user:
+    image: mysql:latest
+    environment:
+      MYSQL_ROOT_PASSWORD: passe
+      MYSQL_DATABASE: user_db
+    ports:
+      - "6033:3306"
+
+  php:
+    image: phpmyadmin
+    depends_on:
+      - db_user
+    restart: always
+    ports:
+      - "8081:80"
+    environment:
+      PMA_HOST: db_user
+      MYSQL_ROOT_PASSWORD: passe
+
+  student:
+    image: ecmfantome/technoweb:1.2
+    depends_on:
+      - php
+    restart: always
+    ports:
+      - "5050:5050"
+    environment:
+      DB_URL: db_user:3306/user_db
